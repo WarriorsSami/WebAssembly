@@ -73,9 +73,15 @@ impl Snake {
         self.last_direction = direction;
 
         let new_head = match direction {
-            Direction::Up => Block((self.head.0) % self.width, (self.head.1 - 1) % self.height),
+            Direction::Up => Block(
+                (self.head.0) % self.width,
+                (self.head.1.checked_sub(1).unwrap_or(self.height - 1)) % self.height
+            ),
             Direction::Down => Block((self.head.0) % self.width, (self.head.1 + 1) % self.height),
-            Direction::Left => Block((self.head.0 - 1) % self.width, (self.head.1) % self.height),
+            Direction::Left => Block(
+                (self.head.0.checked_sub(1).unwrap_or(self.width - 1)) % self.width,
+                (self.head.1) % self.height
+            ),
             Direction::Right => Block((self.head.0 + 1) % self.width, (self.head.1) % self.height),
         };
 
