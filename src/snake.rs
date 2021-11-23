@@ -1,7 +1,6 @@
 use crate::canvas::Canvas;
 use stdweb::unstable::TryInto;
 use crate::direction::Direction;
-use proc_macro::bridge::server::Diagnostic;
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
 struct Block(u32, u32);
@@ -106,13 +105,13 @@ impl Snake {
     }
 
     pub fn draw(&self, canvas: &Canvas) {
-        canvas.clear();
-        canvas.draw_block(self.head.0, self.head.1, "green");
+        canvas.clear_all();
+        canvas.draw(self.head.0, self.head.1, "green");
 
         for &Block(x, y) in &self.tail {
-            canvas.draw_block(x, y, "lightgreen");
+            canvas.draw(x, y, "lightgreen");
         }
 
-        canvas.draw_block(self.food.0, self.food.1, "red");
+        canvas.draw(self.food.0, self.food.1, "red");
     }
 }
